@@ -2,12 +2,13 @@
 import {useEffect,useState} from "react";
 export function Allusers() {
   const [users,setusers]=useState([]);
-  const getusers=()=>{fetch("https://hackathon-crm.herokuapp.com/users/all/Admin@gmail.com",{method:"GET"})
+  const getusers=()=>{fetch("https://hackathon-crm.herokuapp.com/users/",{method:"GET"})
   .then((data) => data.json())
   .then((mvs) => setusers(mvs))};
   useEffect(getusers,[]);
   console.log(users);
-
+  // var type=localstorage.getItem("type");
+  // console.log(type);
   return (
     <div>
       
