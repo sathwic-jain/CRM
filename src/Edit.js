@@ -31,7 +31,7 @@ export function Edit() {
       .then((data) => data.json())
       .then((mvs) => setleadedit(mvs));
   };
-  useEffect(getsp, []);
+  useEffect(getsp,);
   return leadedit?<EditLead leadedit={leadedit} setleadedit={setleadedit} id={id}/>:"";
 }
 function EditLead({leadedit,setleadedit,id}){
