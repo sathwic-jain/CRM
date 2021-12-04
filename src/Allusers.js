@@ -7,7 +7,7 @@ export function Allusers() {
   .then((mvs) => setusers(mvs))};
   useEffect(getusers,[]);
   console.log(users);
- 
+
   return (
     <div>
       
