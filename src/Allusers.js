@@ -7,6 +7,7 @@ export function Allusers() {
   .then((mvs) => setusers(mvs))};
   useEffect(getusers,[]);
   console.log(users);
+  // localstorage.setitem("type","shit");
   // var type=localstorage.getItem("type");
   // console.log(type);
   return (

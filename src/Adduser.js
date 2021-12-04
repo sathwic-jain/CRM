@@ -28,11 +28,7 @@ export function Adduser() {
     useFormik({
       initialValues: { username: "", password: "",type:"",firstname:"",lastname:"" },
       validationSchema: formValidationSchema,
-      onSubmit: (values) => {
-        values.type=position;
-        console.log("onSubmit", values);
-        // adding(values,type);
-      },
+     
     });
     
   return (
@@ -108,7 +104,9 @@ export function Adduser() {
         />
         <label for="employee">Employee</label>
         <button type="submit" onClick={()=>{
-          console.log("here");
+         
+          values.type=position;
+          console.log(values);
           fetch("https://hackathon-crm.herokuapp.com/users/add", {
         method: "POST",
         body:JSON.stringify(values),
