@@ -1,26 +1,13 @@
 import { useFormik } from "formik";
-import { useState} from "react";
-
-
+import {useHistory} from "react-router-dom";
 export function Basicform() {
-  const [position,setPosition] =useState(null);
- 
-  // const [change,setchange]=useState(null);
-
-  // useEffect((values,setType)=>{
-  //   login(values,setType);
-   
-  // },[change]);
- 
+  const history=useHistory();
   const { handleChange, handleBlur, handleSubmit, values } = useFormik({
-    initialValues: { username: "", password: "",type:"" },
-    
-    onSubmit: (values) => {
-        values.type=position;
-      console.log(values);
-    
-    },
+    initialValues: { username: "", password: "" },
 
+    onSubmit: () => {
+      console.log(values);
+    },
   });
 
   return (
@@ -44,39 +31,34 @@ export function Basicform() {
           onChange={handleChange}
           onBlur={handleBlur}
         />
-        <input
-        type="radio"
-        id="auth"
-        onClick={()=>setPosition("Administrator")}
-        checked={position==="Administrator"?true:false}
-        />
-        <label for="auth">Administrator</label>
-        
-        <input
-        type="radio"
-        id="manager"
-        onClick={()=>setPosition("Manager")}
-        checked={position==="Manager"?true:false}
-        />
-        <label for="manager">Manager</label>
 
-        <input
-        type="radio"
-        id="employee"
-        onClick={()=>setPosition("employee")}
-        checked={position==="employee"?true:false}
-        />
-        <label for="employee">Employee</label>
-        <button type="submit" onClick={()=>{fetch("https://hackathon-crm.herokuapp.com/users/login", {
-        method: "POST",
-        body: JSON.stringify(values),
-        headers: { "Content-Type": "APPLICATION/JSON" },
-      }).then((response) => console.log(response))}
-    }>Login</button>
+        <button
+          type="submit"
+          onClick={() => {
+            console.log("a");
+            fetch("https://hackathon-crm.herokuapp.com/users/login", {
+              method: "POST",
+              body: JSON.stringify(values),
+              headers: { "Content-Type": "APPLICATION/JSON" },
+            })
+              .then((response) => {
+                history.push("/");
+                return response.json();
+              })
+              .then((data) => {
+                if(data.token)localStorage.setItem("token", data.token);
+                // (localStorage.getItem("token"))?console.log("shit"):console.log("no shit");
+                 window.location.reload();
+                 
+              });
+          
+          }}
+        >
+          Login
+        </button>
       </form>
     </div>
   );
-
 }
 
 // function login(values,setType){
@@ -88,6 +70,71 @@ export function Basicform() {
 //         headers: { "Content-Type": "APPLICATION/JSON" },
 //       })
 //         .then((response) => (response.ok ? (alert("Successful"),setType(values.type)) : alert("invalid credentials")));
-       
-//         } 
+
+//         }
 // }
+
+//////////////////////////////////
+
+// import { useFormik } from "formik";
+// import { useState,useEffect } from "react";
+
+// export function Basicform({type,setType}) {
+//   const [change,setchange]=useState(null);
+
+//   useEffect((values,setType)=>{
+//     login(values,setType);
+
+//   },[change]);
+
+//   const { handleChange, handleBlur, handleSubmit, values } = useFormik({
+//     initialValues: { username: "", password: "" },
+
+//     onSubmit: (values) => {
+
+//       console.log(values);
+
+//     },
+
+//   });
+
+//   return (
+//     <div>
+//       <form onSubmit={handleSubmit}>
+//         <input
+//           type="username"
+//           id="username"
+//           name="username"
+//           placeholder="Enter your email "
+//           value={values.username}
+//           onChange={handleChange}
+//           onBlur={handleBlur}
+//         />
+//         <input
+//           type="password"
+//           id="password"
+//           name="password"
+//           placeholder="Enter the password"
+//           value={values.password}
+//           onChange={handleChange}
+//           onBlur={handleBlur}
+//         />
+
+//         <button type="submit" onClick={()=>setchange("changed")}>Login</button>
+//       </form>
+//     </div>
+//   );
+
+// }
+
+// function login(values,setType){
+//     console.log(values);
+
+//     fetch("https://hackathon-crm.herokuapp.com/users/login", {
+//         method: "POST",
+//         body: JSON.stringify(values),
+//         headers: { "Content-Type": "APPLICATION/JSON" },
+//       })
+//         .then((response) => console.log(response));
+
+//         }

@@ -28,7 +28,7 @@ export function AddLeads() {
         fetch("https://hackathon-crm.herokuapp.com/leads/add", {
             method: "POST",
             body:JSON.stringify(values),
-            headers:{"Content-Type":"APPLICATION/JSON" }
+            headers:{"Content-Type":"APPLICATION/JSON", "x-emp-token": localStorage.getItem("token") }
           }).then(()=>{
             history.push("/Leads");
           });

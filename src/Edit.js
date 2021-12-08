@@ -27,7 +27,7 @@ export function Edit() {
     const [leadedit,setleadedit]=useState(null);
   const { id } = useParams();
   const getsp = () => {
-    fetch("https://hackathon-crm.herokuapp.com/leads/" + id, { method: "GET" })
+    fetch("https://hackathon-crm.herokuapp.com/leads/" + id, { method: "GET",headers: { "x-emp-token": localStorage.getItem("token") }})
       .then((data) => data.json())
       .then((mvs) => setleadedit(mvs));
   };
@@ -53,9 +53,8 @@ function EditLead({leadedit,setleadedit,id}){
             method: "PUT",
             body:JSON.stringify(values),
             headers:{"Content-Type":"APPLICATION/JSON", 
-              "x-auth-token":
-                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxYTIyNWU3ZTYyNDVmMGQ3NDk4MzM5ZCIsImlhdCI6MTYzODExNDI2MX0.1BvMh_vZUYoUIvQo5lZS1MKY43-sLeQZGqZblLqgw8A",
-            }
+             "x-emp-token": localStorage.getItem("token")
+          }
           }).then(()=>{
             history.push("/Leads");
           });

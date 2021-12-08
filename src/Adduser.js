@@ -110,8 +110,9 @@ export function Adduser() {
           fetch("https://hackathon-crm.herokuapp.com/users/add", {
         method: "POST",
         body:JSON.stringify(values),
-        headers:{"Content-Type":"APPLICATION/JSON"}
-      }).then((response)=>{console.log(response)
+        headers:{"Content-Type":"APPLICATION/JSON", "x-admin-token": localStorage.getItem("token")},
+        
+      }).then((response)=>{console.log(response.message)
       })}}>Add</button>
       </form>
     </div>
