@@ -1,6 +1,10 @@
 import { useFormik } from "formik";
 import {useHistory} from "react-router-dom";
+import {useState} from "react";
+import Button from '@mui/material/Button';
+
 export function Basicform() {
+  const [status,setStatus]=useState(200);
   const history=useHistory();
   const { handleChange, handleBlur, handleSubmit, values } = useFormik({
     initialValues: { username: "", password: "" },
@@ -11,9 +15,11 @@ export function Basicform() {
   });
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
+    <div className="outerLogin">
+    <div className="Login">
+      <form onSubmit={handleSubmit} className="Loginbox">
         <input
+          style={{margin:10,marginTop:20}}
           type="username"
           id="username"
           name="username"
@@ -32,7 +38,8 @@ export function Basicform() {
           onBlur={handleBlur}
         />
 
-        <button
+        <Button
+          variant="contained"
           type="submit"
           onClick={() => {
             console.log("a");
@@ -42,21 +49,28 @@ export function Basicform() {
               headers: { "Content-Type": "APPLICATION/JSON" },
             })
               .then((response) => {
-                history.push("/");
+                if(response.status===401) setStatus(401);
+                
                 return response.json();
+                
               })
+
               .then((data) => {
-                if(data.token)localStorage.setItem("token", data.token);
-                // (localStorage.getItem("token"))?console.log("shit"):console.log("no shit");
-                 window.location.reload();
+                if(data.token){localStorage.setItem("token", data.token);
+                history.push("/");
+                window.location.reload();}
                  
               });
           
           }}
         >
           Login
-        </button>
+        </Button>
       </form>
+      
+      <Button variant="contained" onClick={()=>history.push("/forgot")} style={{margin:15,marginBottom:20}}>Forgot password</Button>
+      {status===401?<div>Invalid credentials,Try again.If you forgot your password,reset it through "Forgot password" button</div>:""}
+    </div>
     </div>
   );
 }

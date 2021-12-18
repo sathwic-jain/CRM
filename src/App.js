@@ -6,20 +6,28 @@ import { Leads } from "./Leads.js";
 import { AddLeads } from "./AddLeads";
 import { Edit } from "./Edit";
 import { Allusers } from "./Allusers";
-
+import { Forgot } from "./Forgot";
+import { Reset } from "./Reset";
+import {useState} from "react";
+import AppBar from '@mui/material/AppBar';
+import Button from '@mui/material/Button';
 
 function App() {
   const display = localStorage.getItem("token");
+  const [email,setemail]=useState("")
+ 
   return (
-    <div>
-      <ul>
+   
+    <div >
+       <AppBar position="static"> 
+      <ul className="appbar">
         <li>
-          <Link to="/">Home</Link>
+          <Link to="/"><Button variant="text" style={{color:"white"}}>Home</Button></Link>
         </li>
         {display ? (
           <div>
             <li>
-              <Link to="/Users">Add User</Link>
+              <Link to="/Users"><Button variant="text" style={{color:"white"}}>Add User</Button></Link>
             </li>
             <li>
               <Link to="/leads">Leads</Link>
@@ -36,10 +44,11 @@ function App() {
           </div>
         ) : (
           <li>
-            <Link to="/Login">Login</Link>
+            <Link to="/Login"><Button variant="text" style={{color:"white"}}>Login</Button></Link>
           </li>
         )}
       </ul>
+      </AppBar>
       <Switch>
         <Route exact path="/">
           <Home />
@@ -65,8 +74,15 @@ function App() {
         <Route exact path="/logout">
           <Logout />
         </Route>
+        <Route exact path="/forgot">
+          <Forgot email={email} setemail={setemail} />
+        </Route>
+        <Route path="/reset/:resetid">
+          <Reset/>
+        </Route>
       </Switch>
     </div>
+    
   );
 }
 
@@ -83,6 +99,15 @@ function Logout() {
 }
 
 function Home() {
-  return <div>Hello</div>;
+  return (
+  <div className="home">
+    <div>
+    <div className="description">
+        <p>Welcome,to a basic CRM app.
+          Here you can add/customize your leads according to your wish.Contact the administrator for an account</p>
+      </div>
+      </div>
+  </div>);
 }
+
 export default App;

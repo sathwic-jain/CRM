@@ -47,7 +47,7 @@ export function AddLeads() {
           onChange={handleChange}
           onBlur={handleBlur}
         />
-        {touched.name && errors.name ? <div>{errors.name}</div> : null}
+        {touched.email && errors.email ? <div>{errors.email}</div> : null}
 
         <input
           type="name"
@@ -58,7 +58,7 @@ export function AddLeads() {
           onChange={handleChange}
           onBlur={handleBlur}
         />
-        {touched.email && errors.email ? <div>{errors.email}</div> : null}
+        {touched.name && errors.name ? <div>{errors.name}</div> : null}
 
         <input
           type="Phone"
@@ -94,6 +94,7 @@ export function AddLeads() {
       
         <button type="submit">Add</button>
       </form>
+      
     </div>
   );
 }
