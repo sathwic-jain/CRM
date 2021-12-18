@@ -2,6 +2,7 @@ import { useFormik } from "formik";
 import {useHistory} from "react-router-dom";
 import {useState} from "react";
 import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
 
 export function Basicform() {
   const [status,setStatus]=useState(200);
@@ -18,7 +19,9 @@ export function Basicform() {
     <div className="outerLogin">
     <div className="Login">
       <form onSubmit={handleSubmit} className="Loginbox">
-        <input
+        <TextField 
+         variant="outlined"
+         label="Email"
           style={{margin:10,marginTop:20}}
           type="username"
           id="username"
@@ -28,7 +31,9 @@ export function Basicform() {
           onChange={handleChange}
           onBlur={handleBlur}
         />
-        <input
+        <TextField
+        variant="outlined"
+        label="Password"
           type="password"
           id="password"
           name="password"
@@ -66,9 +71,10 @@ export function Basicform() {
         >
           Login
         </Button>
+        <Button variant="contained" onClick={()=>history.push("/forgot")} style={{margin:15,marginBottom:20}}>Forgot password</Button>
       </form>
       
-      <Button variant="contained" onClick={()=>history.push("/forgot")} style={{margin:15,marginBottom:20}}>Forgot password</Button>
+      
       {status===401?<div>Invalid credentials,Try again.If you forgot your password,reset it through "Forgot password" button</div>:""}
     </div>
     </div>
