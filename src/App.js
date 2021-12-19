@@ -25,21 +25,21 @@ function App() {
           <Link to="/"><Button variant="text" style={{color:"white"}}>Home</Button></Link>
         </li>
         {display ? (
-          <div>
+          <div className="appbar">
             <li>
               <Link to="/Users"><Button variant="text" style={{color:"white"}}>Add User</Button></Link>
             </li>
             <li>
-              <Link to="/leads">Leads</Link>
+              <Link to="/leads"><Button variant="text" style={{color:"white"}}>Leads</Button></Link>
             </li>
             <li>
-              <Link to="/addleads">AddLeads</Link>
+              <Link to="/addleads"><Button variant="text" style={{color:"white"}}>AddLeads</Button></Link>
             </li>
             <li>
-              <Link to="/alluser">All users</Link>
+              <Link to="/alluser"><Button variant="text" style={{color:"white"}}>All users</Button></Link>
             </li>
             <li>
-              <Link to="/logout">Logout</Link>
+              <Link to="/logout"><Button variant="text" style={{color:"white"}}>Logout</Button></Link>
             </li>
           </div>
         ) : (

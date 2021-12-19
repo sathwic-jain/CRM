@@ -14,12 +14,14 @@ export function Basicform() {
       console.log(values);
     },
   });
+ 
 
   return (
     <div className="outerLogin">
     <div className="Login">
       <form onSubmit={handleSubmit} className="Loginbox">
         <TextField 
+        
          variant="outlined"
          label="Email"
           style={{margin:10,marginTop:20}}
@@ -71,11 +73,10 @@ export function Basicform() {
         >
           Login
         </Button>
+        {status===401?<div><p style={{textAlign: "center"}}>Invalid credentials,Try again.</p>If you forgot your password,reset it through "Forgot password" button</div>:""}
         <Button variant="contained" onClick={()=>history.push("/forgot")} style={{margin:15,marginBottom:20}}>Forgot password</Button>
       </form>
-      
-      
-      {status===401?<div>Invalid credentials,Try again.If you forgot your password,reset it through "Forgot password" button</div>:""}
+        
     </div>
     </div>
   );

@@ -1,6 +1,6 @@
 import { useFormik } from "formik";
 import * as yup from "yup";
-import {useState} from "react";
+import {useState,useEffect} from "react";
 
 const formValidationSchema = yup.object({
   email: yup
@@ -23,6 +23,12 @@ const formValidationSchema = yup.object({
 });
 
 export function Adduser() {
+  const [users,setuser]=useState([]);
+  const getleads=()=>{fetch("https://hackathon-crm.herokuapp.com/users/",{method:"GET",headers: { "x-manager-token": localStorage.getItem("token")}})
+  .then((data) => data.json())
+  .then((mvs) => setuser(mvs))};
+  useEffect(getleads,[]);
+
   const [position,setPosition] =useState("New");
   const { handleChange, handleBlur, handleSubmit, values, errors, touched } =
     useFormik({
@@ -30,7 +36,7 @@ export function Adduser() {
       validationSchema: formValidationSchema,
      
     });
-    
+    if(!users.error){
   return (
     <div>
       <form onSubmit={handleSubmit}>
@@ -117,6 +123,11 @@ export function Adduser() {
       </form>
     </div>
   );
+    }
+    else
+    return(
+      <div>Not authorized here.Contact the administrator for further details</div>
+    )
 }
 // function adding(values,type){
 //     console.log(values);

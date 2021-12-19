@@ -1,6 +1,6 @@
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import {useHistory} from "react-router-dom";
 
 const formValidationSchema = yup.object({
@@ -16,8 +16,16 @@ const formValidationSchema = yup.object({
     description:yup.string().required("Describe the event in a few words").min(15,"shortage of words")
 });
 
+
+
 export function AddLeads() {
     const history=useHistory();
+    const [leads,setleads]=useState([]);
+    const getleads=()=>{fetch("https://hackathon-crm.herokuapp.com/leads/all",{method:"GET",headers: { "x-emp-token": localStorage.getItem("token")}})
+    .then((data) => data.json())
+    .then((mvs) => setleads(mvs))};
+    useEffect(getleads,[]);
+
   const { handleChange, handleBlur, handleSubmit, values, errors, touched } =
     useFormik({
       initialValues: { email: "",name:"",status:"",Phone:"",description:"" },
@@ -35,6 +43,7 @@ export function AddLeads() {
       },
     });
   const [status, setstatus] = useState("");
+  if(!leads.error){
   return (
     <div>
       <form onSubmit={handleSubmit}>
@@ -97,4 +106,9 @@ export function AddLeads() {
       
     </div>
   );
+  }
+  else
+  return(
+    <div>Not authorized</div>
+  )
 }
