@@ -42,7 +42,7 @@ export function AddLeads() {
           });
       },
     });
-  const [status, setstatus] = useState("");
+  const [status, setstatus] = useState("New");
   if(!leads.error){
   return (
     <div>

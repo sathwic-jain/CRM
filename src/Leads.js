@@ -10,15 +10,15 @@ export function Leads() {
   const history=useHistory();
   if(!leads.error){
   return (
-    <div>
+    <div className="leads">
       
         {leads.map((element)=>(
-            <div> 
-           <p>name:{element.name}</p>
-           <p>Phone:{element.Phone}</p>
-           <p>email:{element.email}</p>
-           <p>status:{element.status}</p>
-           <p>description:{element.description}</p>
+            <div className="eachlead"> 
+           <p><b>Name:</b> {element.name}</p>
+           <p><b>Phone:</b> {element.Phone}</p>
+           <p><b>Email:</b> {element.email}</p>
+           <p><b>Status:</b> {element.status}</p>
+           <p><b>Description:</b> {element.description}</p>
            <button onClick={()=>history.push(`/EditLeads/${element._id}`)}>Edit</button>
            <button onClick={() => {
               fetch(

@@ -88,8 +88,6 @@ function App() {
 
 function Logout() {
   localStorage.removeItem("token");
-  console.log("done");
-  console.log(localStorage.getItem("token"));
   
   return (
     <div>
