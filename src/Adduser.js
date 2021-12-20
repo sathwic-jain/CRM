@@ -1,7 +1,7 @@
 import { useFormik } from "formik";
 import * as yup from "yup";
 import {useState,useEffect} from "react";
-
+import {useHistory} from "react-router-dom";
 const formValidationSchema = yup.object({
   email: yup
     .string()
@@ -23,6 +23,7 @@ const formValidationSchema = yup.object({
 });
 
 export function Adduser() {
+  const history=useHistory();
   const [users,setuser]=useState([]);
   const getleads=()=>{fetch("https://hackathon-crm.herokuapp.com/users/",{method:"GET",headers: { "x-manager-token": localStorage.getItem("token")}})
   .then((data) => data.json())
@@ -118,7 +119,9 @@ export function Adduser() {
         body:JSON.stringify(values),
         headers:{"Content-Type":"APPLICATION/JSON", "x-admin-token": localStorage.getItem("token")},
         
-      }).then((response)=>{console.log(response.message)
+      }).then((response)=>{alert("Succesfully added");
+      history.push("/");
+      console.log(response.message)
       })}}>Add</button>
       </form>
     </div>
@@ -129,12 +132,3 @@ export function Adduser() {
       <div>Not authorized here.Contact the administrator for further details</div>
     )
 }
-// function adding(values,type){
-//     console.log(values);
-//     fetch("https://hackathon-crm.herokuapp.com/users/add", {
-//         method: "POST",
-//         body:JSON.stringify(values),
-//         headers:{"Content-Type":"APPLICATION/JSON"}
-//       }).then((response)=>{console.log(response)
-//       });
-// }
