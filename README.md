@@ -1,7 +1,8 @@
 #Profiles
 Administrator:
 Administrator@gmail.com,Password:Admin@123
-
+#Manager:
+Manager@gmail.com,Password:Manager@123
 
 # Getting Started with Create React App
 
